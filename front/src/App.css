@@ -1,0 +1,23 @@
+.app {
+    position: relative;
+    height: 2000px;
+    background: rgba(26, 31, 37, 1);
+    display: grid;
+    grid-template-rows: 1fr 20px 10fr;
+    grid-template-areas:
+            "h"
+            "n"
+            "c";
+}
+
+.head {
+    grid-area: h;
+}
+
+.nav {
+    grid-area: n;
+}
+
+.content {
+    grid-area: c;
+}
