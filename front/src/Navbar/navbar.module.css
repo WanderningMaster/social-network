@@ -1,3 +1,26 @@
+.nav{
+    position: relative;
+    padding-top: 14px;
+    text-align: center;
+    background: #2b313c;
+}
 .button{
+    color: grey;
+    font-size: 40px;
+    padding: 0 40px;
+}
+.button:hover{
+    color: #859fff;
+}
+.button:focus, .button:active{
+    color: #4769ff;
+    border-bottom: 3px solid #4769ff;
+}
 
+.profile{
+    text-decoration: none;
+    position: absolute;
+    right: 10px;
+    color: white;
+    font-size: 22px;
 }
