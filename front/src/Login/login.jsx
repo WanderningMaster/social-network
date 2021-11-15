@@ -2,6 +2,7 @@ import React from "react";
 import {Field, reduxForm} from "redux-form";
 import s from "./login.module.css";
 import {BiLockAlt, HiOutlineUserCircle} from "react-icons/all";
+import {RegistrationThunk} from "../state/auth-reducer";
 
 const renderField = ({input, label, type, meta, icon}) => {
     return <div>
@@ -49,20 +50,20 @@ const SignUpForm = (props) => {
     return (
         <form className={s.sign_up} onSubmit={props.handleSubmit}>
             <div>
-                <Field className={s.input && s.user} component={renderField} name="name" label="Username" type="text"
+                <Field className={s.input && s.user} component={renderField} name="username" label="Username" type="text"
                        validate={[required, maxLength20]}/>
             </div>
             <div>
                 <Field className={s.input && s.age} component={renderField} name="age" label="Age" type="number"
-                       validate={[required, maxLength2]}/>
+                       validate={[maxLength2]}/>
             </div>
             <div>
                 <Field className={s.input && s.email}
                        component={renderField} name="email" label="Email" type="email"
-                       validate={[required, email, maxLength20]}/>
+                       validate={[email, maxLength20]}/>
             </div>
             <div>
-                <Field className={s.input && s.pass} component={renderField} name="password" type="password"
+                <Field className={s.input && s.pass} component={renderField} name="passw" type="text"
                        label="Password"
                        validate={[required, maxLength30]}/>
             </div>
@@ -78,6 +79,7 @@ const Login = (props) => {
         console.log(formData);
     }
     const onSubmitReg = (formData) => {
+        props.RegistrationThunk(formData.username, formData.passw);
         console.log(formData);
     }
     return <div className={s.body}>

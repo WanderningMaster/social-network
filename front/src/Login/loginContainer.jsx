@@ -1,7 +1,7 @@
 import React from "react";
 import Login from "./login";
 import {connect} from "react-redux";
-import {AuthMe, GoToSignIn, GoToSignUp} from "../state/auth-reducer";
+import {AuthMe, GoToSignIn, GoToSignUp, RegAC, RegistrationThunk} from "../state/auth-reducer";
 import {compose} from "redux";
 
 class LoginContainer extends React.Component {
@@ -18,4 +18,4 @@ const mapStateToProps = (state) => {
         isAuth: state.login.isAuth
     }
 }
-export default compose(connect(mapStateToProps, {GoToSignIn, GoToSignUp, AuthMe}))(LoginContainer);
+export default compose(connect(mapStateToProps, {GoToSignIn, GoToSignUp, RegistrationThunk}))(LoginContainer);
