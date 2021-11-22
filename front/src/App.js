@@ -13,18 +13,18 @@ const Home = (props) => {
 const App = (props) => {
     const isAuth = true;
     return (
-        <BrowserRouter>
-            <div className='app'>
-                <Navbar className='nav'/>
-                <div className='content'>
-                    <Routes>
-                        <Route path='/users' element={<UsersContainer/>}/>
-                        <Route path='/feed' element={<Home/>}/>
-                    </Routes>
-                </div>
-            </div>
-        </BrowserRouter>
-        // <LoginContainer/>
+        // <BrowserRouter>
+        //     <div className='app'>
+        //         <Navbar className='nav'/>
+        //         <div className='content'>
+        //             <Routes>
+        //                 <Route path='/users' element={<UsersContainer/>}/>
+        //                 <Route path='/feed' element={<Home/>}/>
+        //             </Routes>
+        //         </div>
+        //     </div>
+        // </BrowserRouter>
+        <LoginContainer/>
     )
 }
 

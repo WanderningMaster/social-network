@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {
     AuthMe,
     GoToSignIn,
-    GoToSignUp,
+    GoToSignUp, LoginThunk,
     PassInvisible,
     PassVisible,
     RegAC,
@@ -32,5 +32,6 @@ export default compose(connect(mapStateToProps, {
     GoToSignUp,
     RegistrationThunk,
     PassVisible,
-    PassInvisible
+    PassInvisible,
+    LoginThunk
 }))(LoginContainer);

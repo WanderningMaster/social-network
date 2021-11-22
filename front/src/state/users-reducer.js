@@ -19,8 +19,8 @@ const UsersReducer = (state = initialState, action) => {
 export const AddUsers = (users) => ({type: ADD_USER, users});
 export const getUsers = () => {
     return (dispatch) => {
-        UsersAPI.getUsers().then(data => {
-                dispatch(AddUsers(data));
+        UsersAPI.getUsers().then(response=> {
+                dispatch(AddUsers(response.data.data));
             }
         )
     }

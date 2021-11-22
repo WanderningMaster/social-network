@@ -2,7 +2,7 @@ import React from "react";
 import {Field, reduxForm} from "redux-form";
 import s from "./login.module.css";
 import {BiLockAlt, HiOutlineUserCircle, AiFillEye, AiFillEyeInvisible} from "react-icons/all";
-import {RegistrationThunk} from "../state/auth-reducer";
+import {LoginThunk} from "../state/auth-reducer";
 
 const renderField = ({input, label, type, meta, icon}) => {
     return <div>
@@ -81,6 +81,7 @@ const SignUpForm = (props) => {
 const ReduxSignUpForm = reduxForm({form: "registration"})(SignUpForm);
 const Login = (props) => {
     const onSubmit = (formData) => {
+        props.LoginThunk(formData.username, formData.passw);
         console.log(formData);
     }
     const onSubmitReg = (formData) => {

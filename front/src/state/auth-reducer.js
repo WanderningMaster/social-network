@@ -1,4 +1,6 @@
 import {AuthAPI} from "../API/api";
+import {Redirect, Route} from "react-router-dom";
+
 const ADD_AUTH_INFO = 'ADD_AUTH_INFO';
 const GO_TO_SIGNIN = 'GO_TO_SIGNIN';
 const GO_TO_SIGNUP = 'GO_TO_SIGNUP';
@@ -34,10 +36,17 @@ export default LoginReducer;
 export const AddAuthInfo = (username, passw) => ({type: ADD_AUTH_INFO, payload: {username, passw}});
 export const GoToSignIn = (reg) => ({type: GO_TO_SIGNIN, reg});
 export const GoToSignUp = (reg) => ({type: GO_TO_SIGNUP, reg});
-export const PassVisible = () =>({type:PASS_VISIBLE});
-export const PassInvisible = () =>({type:PASS_INVISIBLE});
+export const PassVisible = () => ({type: PASS_VISIBLE});
+export const PassInvisible = () => ({type: PASS_INVISIBLE});
 export const RegistrationThunk = (username, passw) => (dispatch) => {
-    AuthAPI.reg(username, passw).then(response=>{
-            dispatch(AddAuthInfo(response.data))
+    AuthAPI.reg(username, passw).then(response => {
+        dispatch(AddAuthInfo(response.data))
     })
 };
+export const LoginThunk = (username, passw) => dispatch => {
+    AuthAPI.login(username, passw).then(response => {
+        if (response.data !== null) {
+            dispatch(AddAuthInfo(response.data.data))
+        }
+    })
+}
