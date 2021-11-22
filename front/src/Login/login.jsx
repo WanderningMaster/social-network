@@ -1,7 +1,7 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
 import s from "./login.module.css";
-import {BiLockAlt, HiOutlineUserCircle} from "react-icons/all";
+import {BiLockAlt, HiOutlineUserCircle, AiFillEye, AiFillEyeInvisible} from "react-icons/all";
 import {RegistrationThunk} from "../state/auth-reducer";
 
 const renderField = ({input, label, type, meta, icon}) => {
@@ -10,6 +10,7 @@ const renderField = ({input, label, type, meta, icon}) => {
         <div>
             <input className={meta.touched && meta.error ? s.error : s.input} {...input} placeholder={label}
                    type={type}/>
+
             {meta.touched && (meta.error && <span className={s.error_message}>{meta.error}</span>)}
         </div>
     </div>
@@ -32,9 +33,12 @@ const SignInForm = (props) => {
                        validate={[required, maxLength20]}/>
             </div>
             <div>
-                <Field className={s.input} icon={<BiLockAlt/>} component={renderField} name="password" type="password"
+                <Field className={s.input} icon={<BiLockAlt/>} component={renderField} name="password"
+                       type={props.isVisible ? "text" : "password"}
                        label="Password"
                        validate={[required, maxLength30]}/>
+                <div onClick={props.isVisible ? () => props.PassInvisible() : () => props.PassVisible()}
+                     className={s.iconPass}>{props.isVisible ? <AiFillEye/> : <AiFillEyeInvisible/>}</div>
             </div>
             <div>
                 <button className={s.button_log} type="submit">Sign in</button>
@@ -50,7 +54,8 @@ const SignUpForm = (props) => {
     return (
         <form className={s.sign_up} onSubmit={props.handleSubmit}>
             <div>
-                <Field className={s.input && s.user} component={renderField} name="username" label="Username" type="text"
+                <Field className={s.input && s.user} component={renderField} name="username" label="Username"
+                       type="text"
                        validate={[required, maxLength20]}/>
             </div>
             <div>
@@ -85,18 +90,19 @@ const Login = (props) => {
     return <div className={s.body}>
         <div className={s.sign}>
             <button className={s.signButton} onClick={() => {
-                props.GoToSignIn(props.reg)
+                props.GoToSignIn(props.isReg)
             }}>Sign In
             </button>
         </div>
         <div className={s.sign}>
             <button className={s.signButton} onClick={() => {
-                props.GoToSignUp(props.reg)
+                props.GoToSignUp(props.isReg)
             }}>Sign Up
             </button>
         </div>
-        {props.reg
-            ? <ReduxSignInForm onSubmit={onSubmit}/>
+        {props.isReg
+            ? <ReduxSignInForm PassVisible={props.PassVisible} PassInvisible={props.PassInvisible}
+                               isVisible={props.isVisible} onSubmit={onSubmit}/>
             : <ReduxSignUpForm onSubmit={onSubmitReg}/>
         }
     </div>

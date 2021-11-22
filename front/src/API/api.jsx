@@ -12,3 +12,8 @@ export const AuthAPI = {
         return instance.post(`api/user`, {username, passw});
     }
 }
+export const UserAPI = {
+    getUsers(){
+        return instance.get(`api/user`);
+    }
+}
