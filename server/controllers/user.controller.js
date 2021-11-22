@@ -11,10 +11,12 @@ class UserController{
         const passw_hash = bcrypt.hashSync(passw, salt);
         try {
             const newUser = await pool.query(`INSERT INTO "user" (username, passw) values ($1, $2) RETURNING *`, [username, passw_hash]);
-            res.json(newUser.rows[0]);
+            res.json({data: newUser.rows[0]});
+            res.status(0);
         } catch (err) {
             console.error(err);
-            res.json(err);
+            res.json({data: null});
+            res.status(1);
         }
         
     }
@@ -22,12 +24,13 @@ class UserController{
     async getUsers(req, res){
         try {
             const users = await pool.query(`SELECT * FROM "user"`);
-            res.json(users.rows);
+            res.json({data: users.rows});
+            res.status(0);
         } catch (err) {
             console.error(err);
-            res.json(err);
+            res.json({data: null});
+            res.status(1);
         }
-        
     }
 
     async getOneUser(req, res){
@@ -35,34 +38,41 @@ class UserController{
         try {
             const user = await pool.query(`SELECT * FROM "user" WHERE id = ($1)`, [id]);
             
-            //const passw = "root";
-
-            //const result = await bcrypt.compare(passw, user.rows[0].passw);
-            res.json(user.rows[0]);
+            res.json({data: user.rows[0]});
+            res.status(0);
         } catch (err) {
             console.error(err);
-            res.json(err);       
+            res.json({data: null});
+            res.status(1);       
         }
     }
     async updateUser(req, res){
         const {username, passw} = req.body;
         const {id} = req.params;
+        
+        const salt = bcrypt.genSaltSync(10);
+        const passw_hash = bcrypt.hashSync(passw, salt);
+
         try {
-            const updatedUser = await pool.query(`UPDATE "user" set username = $1, passw = $2 WHERE id = $3 RETURNING *`, [username, passw, id]);
-            res.json(updatedUser.rows[0]);
+            const updatedUser = await pool.query(`UPDATE "user" set username = $1, passw = $2 WHERE id = $3 RETURNING *`, [username, passw_hash, id]);
+            res.json({data: updatedUser.rows[0]});
+            res.status(0);
         } catch (err) {
             console.error(err);
-            res.json(err);
+            res.json({data: null});
+            res.status(1);
         }
     }
     async deleteUser(req, res){
         const {id} = req.params;
         try {
             const deletedUser = await pool.query('DELETE FROM "user" WHERE id = $1', [id]);
-            res.json('ok');
+            res.json({data: null});
+            res.status(0);
         } catch (err) {
             console.error(err);
-            res.json(err);  
+            res.json({data: null});  
+            res.status(1);
         }
     }
 }
