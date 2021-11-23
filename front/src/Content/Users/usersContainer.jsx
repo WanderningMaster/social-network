@@ -2,6 +2,9 @@ import React from "react";
 import Users from "./users";
 import {connect} from "react-redux";
 import {getUsers} from "../../state/users-reducer";
+import {authRedirect} from "../../HOC/AuthRedirect";
+import {compose} from "redux";
+import {Navigate} from "react-router-dom";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -25,10 +28,12 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
+        isAuth: state.login.isAuth,
         users: state.usersPage.users,
         totalUsers: state.usersPage.totalUsers,
         pageSize: state.usersPage.pageSize,
         currentPage: state.usersPage.currentPage
     }
 }
-export default connect(mapStateToProps, {getUsers})(UsersContainer);
+export default compose(
+    authRedirect, connect(mapStateToProps, {getUsers}))(UsersContainer);

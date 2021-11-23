@@ -2,7 +2,6 @@ import React from "react";
 import {Field, reduxForm} from "redux-form";
 import s from "./login.module.css";
 import {BiLockAlt, HiOutlineUserCircle, AiFillEye, AiFillEyeInvisible} from "react-icons/all";
-import {LoginThunk} from "../state/auth-reducer";
 
 const renderField = ({input, label, type, meta, icon}) => {
     return <div>
@@ -27,13 +26,13 @@ const SignInForm = (props) => {
     return (
         <form className={s.sign_in} onSubmit={props.handleSubmit}>
             <div>
-                <Field className={s.input} icon={<HiOutlineUserCircle/>} component={renderField} name="login"
+                <Field className={s.input} icon={<HiOutlineUserCircle/>} component={renderField} name="username"
                        label="Login"
                        type="text"
                        validate={[required, maxLength20]}/>
             </div>
             <div>
-                <Field className={s.input} icon={<BiLockAlt/>} component={renderField} name="password"
+                <Field className={s.input} icon={<BiLockAlt/>} component={renderField} name="passw"
                        type={props.isVisible ? "text" : "password"}
                        label="Password"
                        validate={[required, maxLength30]}/>
@@ -82,11 +81,9 @@ const ReduxSignUpForm = reduxForm({form: "registration"})(SignUpForm);
 const Login = (props) => {
     const onSubmit = (formData) => {
         props.LoginThunk(formData.username, formData.passw);
-        console.log(formData);
     }
     const onSubmitReg = (formData) => {
         props.RegistrationThunk(formData.username, formData.passw);
-        console.log(formData);
     }
     return <div className={s.body}>
         <div className={s.sign}>

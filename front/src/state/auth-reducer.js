@@ -1,16 +1,12 @@
 import {AuthAPI} from "../API/api";
-import {Redirect, Route} from "react-router-dom";
 
 const ADD_AUTH_INFO = 'ADD_AUTH_INFO';
-const GO_TO_SIGNIN = 'GO_TO_SIGNIN';
-const GO_TO_SIGNUP = 'GO_TO_SIGNUP';
-const REG_DATA = 'REG_DATA';
-const PASS_VISIBLE = 'PASS_VISSIBLE';
-const PASS_INVISIBLE = 'PASS_INVISSIBLE';
+const GO_TO_SIGN_IN = 'GO_TO_SIGN_IN';
+const GO_TO_SIGN_UP = 'GO_TO_SIGN_UP';
+const PASS_VISIBLE = 'PASS_VISIBLE';
+const PASS_INVISIBLE = 'PASS_INVISIBLE';
 let initialState = {
     id: null,
-    email: null,
-    login: null,
     isAuth: false,
     isReg: true,
     isVisible: false
@@ -19,9 +15,9 @@ const LoginReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_AUTH_INFO:
             return {...state, ...action.payload, isAuth: true}
-        case GO_TO_SIGNIN:
+        case GO_TO_SIGN_IN:
             return {...state, isReg: true}
-        case GO_TO_SIGNUP:
+        case GO_TO_SIGN_UP:
             return {...state, isReg: false}
         case PASS_VISIBLE:
             return {...state, isVisible: true}
@@ -33,20 +29,21 @@ const LoginReducer = (state = initialState, action) => {
 }
 
 export default LoginReducer;
-export const AddAuthInfo = (username, passw) => ({type: ADD_AUTH_INFO, payload: {username, passw}});
-export const GoToSignIn = (reg) => ({type: GO_TO_SIGNIN, reg});
-export const GoToSignUp = (reg) => ({type: GO_TO_SIGNUP, reg});
+export const AddAuthInfo = (id, isAuth) => ({type: ADD_AUTH_INFO, payload: {id, isAuth}});
+export const GoToSignIn = (reg) => ({type: GO_TO_SIGN_IN, reg});
+export const GoToSignUp = (reg) => ({type: GO_TO_SIGN_UP, reg});
 export const PassVisible = () => ({type: PASS_VISIBLE});
 export const PassInvisible = () => ({type: PASS_INVISIBLE});
 export const RegistrationThunk = (username, passw) => (dispatch) => {
     AuthAPI.reg(username, passw).then(response => {
-        dispatch(AddAuthInfo(response.data))
-    })
+        dispatch(AddAuthInfo())
+    });
+    LoginThunk(username, passw);
 };
 export const LoginThunk = (username, passw) => dispatch => {
     AuthAPI.login(username, passw).then(response => {
-        if (response.data !== null) {
-            dispatch(AddAuthInfo(response.data.data))
+        if (response.data.data !== null) {
+            dispatch(AddAuthInfo(response.data.data, true))
         }
     })
 }

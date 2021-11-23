@@ -4,7 +4,7 @@ const ADD_USER = 'ADD_USER';
 
 let initialState = {
     users: [],
-    totalUsers: 50,
+    totalUsers: 20,
     pageSize: 8,
     currentPage: 1
 };

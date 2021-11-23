@@ -8,17 +8,17 @@ const Users = (props) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
-    return <div>
+    return <div className={s.body}>
         <div className={s.counter}>
             {pages.map(page => {
                 return <span className={props.currentPage === page && s.selected}
-                             onClick={() => props.onPageChanged()}>{page}</span>
+                             onClick={() => props.onPageChanged()}>{page} </span>
             })}
         </div>
         {
             props.users.map(user => <div key={user.id}>
-                <div>
-                    <NavLink to={'/profile/' + user.id}>
+                <div className={s.users}>
+                    <NavLink className={s.username} to={'/profile/' + user.id}>
                         {user.username}
                     </NavLink>
                 </div>
