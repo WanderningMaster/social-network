@@ -20,10 +20,11 @@ class UserController{
         }
         
     }
-    //TODO: get specific number of users
+    
     async getUsers(req, res){
+        const {count} = req.params;
         try {
-            const users = await pool.query(`SELECT * FROM "user"`);
+            const users = await pool.query(`SELECT * FROM "user" FETCH FIRST $1 ROWS ONLY`, [count]);
             res.json({data: users.rows});
             res.status(0);
         } catch (err) {

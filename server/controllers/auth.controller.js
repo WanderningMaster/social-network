@@ -16,6 +16,8 @@ class AuthController{
             res.json({data: null, status: 1});
         }
     }
+
+    //add API key
     async login(req, res){
         const {username, passw} = req.body;
         try {
