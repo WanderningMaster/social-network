@@ -2,6 +2,7 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import s from './navbar.module.css';
 import {FaUsers, AiFillHome} from "react-icons/all";
+import {connect} from "react-redux";
 
 const Navbar = (props) => {
     return (
@@ -11,13 +12,14 @@ const Navbar = (props) => {
                 <NavLink to='/users' className={s.button}><FaUsers/></NavLink>
             </span>
             <span>
-                {/*{props.user.photo !== null*/}
-                {/*    ? <img src={props.user.photo}/>*/}
-                {/*    : <></>*/}
-                {/*}*/}
-                <NavLink to='/profile' className={s.profile}>Name</NavLink>
+                {props.profile.username ? <NavLink to='/profile' className={s.profile}>{props.profile.username}</NavLink>
+                    : <NavLink to='/auth' className={s.profile}>Auth</NavLink>
+                }
             </span>
         </header>
     )
 }
-export default Navbar
+let mapStateToProps = state => ({
+    profile: state.profilePage.profile
+})
+export default connect(mapStateToProps, {})(Navbar);

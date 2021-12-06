@@ -1,4 +1,4 @@
-import {UserAPI as UsersAPI} from "../API/api";
+import {UserAPI} from "../API/api";
 
 const ADD_USER = 'ADD_USER';
 
@@ -19,7 +19,7 @@ const UsersReducer = (state = initialState, action) => {
 export const AddUsers = (users) => ({type: ADD_USER, users});
 export const getUsers = () => {
     return (dispatch) => {
-        UsersAPI.getUsers().then(response=> {
+        UserAPI.getUsers().then(response=> {
                 dispatch(AddUsers(response.data.data));
             }
         )

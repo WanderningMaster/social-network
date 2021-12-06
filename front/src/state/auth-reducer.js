@@ -1,5 +1,4 @@
 import {AuthAPI} from "../API/api";
-
 const ADD_AUTH_INFO = 'ADD_AUTH_INFO';
 const GO_TO_SIGN_IN = 'GO_TO_SIGN_IN';
 const GO_TO_SIGN_UP = 'GO_TO_SIGN_UP';
