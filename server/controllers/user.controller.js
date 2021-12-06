@@ -20,7 +20,7 @@ class UserController{
         }
         
     }
-    
+
     async getUsers(req, res){
         const {count} = req.params;
         try {
