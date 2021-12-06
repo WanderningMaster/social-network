@@ -22,8 +22,9 @@ class UserController{
     }
 
     async getUsers(req, res){
+        const {count} = req.params;
         try {
-            const users = await pool.query(`SELECT * FROM "user"`);
+            const users = await pool.query(`SELECT * FROM "user" FETCH FIRST $1 ROWS ONLY`, [count]);
             res.json({data: users.rows});
             res.status(0);
         } catch (err) {
@@ -38,12 +39,10 @@ class UserController{
         try {
             const user = await pool.query(`SELECT * FROM "user" WHERE id = ($1)`, [id]);
             
-            res.json({data: user.rows[0]});
-            res.status(0);
+            res.json({data: user.rows[0], status: 0});
         } catch (err) {
             console.error(err);
-            res.json({data: null});
-            res.status(1);       
+            res.json({data: null, status: 1});
         }
     }
     async updateUser(req, res){
@@ -55,24 +54,20 @@ class UserController{
 
         try {
             const updatedUser = await pool.query(`UPDATE "user" set username = $1, passw = $2 WHERE id = $3 RETURNING *`, [username, passw_hash, id]);
-            res.json({data: updatedUser.rows[0]});
-            res.status(0);
+            res.json({data: updatedUser.rows[0], status: 0});
         } catch (err) {
             console.error(err);
-            res.json({data: null});
-            res.status(1);
+            res.json({data: null, status: 1});
         }
     }
     async deleteUser(req, res){
         const {id} = req.params;
         try {
             const deletedUser = await pool.query('DELETE FROM "user" WHERE id = $1', [id]);
-            res.json({data: null});
-            res.status(0);
+            res.json({data: null, status: 0});
         } catch (err) {
             console.error(err);
-            res.json({data: null});  
-            res.status(1);
+            res.json({data: null, status: 1});  
         }
     }
 }
