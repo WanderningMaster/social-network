@@ -18,7 +18,6 @@ export const getProfile = (id) => {
     return (dispatch) => {
         UserAPI.getProfile(id).then(response => {
                 dispatch(setProfile(response.data.data));
-                console.log(response.data.data);
             }
         )
     }

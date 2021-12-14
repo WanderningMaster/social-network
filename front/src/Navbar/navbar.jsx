@@ -12,7 +12,7 @@ const Navbar = (props) => {
                 <NavLink to='/users' className={s.button}><FaUsers/></NavLink>
             </span>
             <span>
-                {props.profile.username ? <NavLink to='/profile' className={s.profile}>{props.profile.username}</NavLink>
+                {props.isAuth ? <NavLink to={'/profile/' + props.profile.id} className={s.profile}>{props.profile.username}</NavLink>
                     : <NavLink to='/auth' className={s.profile}>Auth</NavLink>
                 }
             </span>
@@ -20,6 +20,7 @@ const Navbar = (props) => {
     )
 }
 let mapStateToProps = state => ({
-    profile: state.profilePage.profile
+    profile: state.login.profile,
+    isAuth: state.login.isAuth
 })
 export default connect(mapStateToProps, {})(Navbar);

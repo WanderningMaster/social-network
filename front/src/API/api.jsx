@@ -19,8 +19,8 @@ export const AuthAPI = {
     }
 }
 export const UserAPI = {
-    getUsers(){
-        return instance.get(`api/user`);
+    getUsers(count){
+        return instance.get(`api/users/${count}`);
     },
     getProfile(id){
         return instance.get(`api/user/${id}`);

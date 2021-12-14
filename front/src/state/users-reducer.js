@@ -5,7 +5,7 @@ const ADD_USER = 'ADD_USER';
 let initialState = {
     users: [],
     totalUsers: 20,
-    pageSize: 8,
+    size: 8,
     currentPage: 1
 };
 const UsersReducer = (state = initialState, action) => {
@@ -17,9 +17,9 @@ const UsersReducer = (state = initialState, action) => {
     }
 }
 export const AddUsers = (users) => ({type: ADD_USER, users});
-export const getUsers = () => {
+export const getUsers = (size) => {
     return (dispatch) => {
-        UserAPI.getUsers().then(response=> {
+        UserAPI.getUsers(size).then(response=> {
                 dispatch(AddUsers(response.data.data));
             }
         )

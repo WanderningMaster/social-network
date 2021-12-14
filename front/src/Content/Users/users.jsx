@@ -3,7 +3,7 @@ import s from "./users.module.css";
 import {NavLink} from "react-router-dom";
 
 const Users = (props) => {
-    let pagesCount = Math.ceil(props.totalUsers / props.pageSize);
+    let pagesCount = Math.ceil(props.totalUsers / props.size);
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
