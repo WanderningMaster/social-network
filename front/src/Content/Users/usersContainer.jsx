@@ -2,7 +2,6 @@ import React from "react";
 import Users from "./users";
 import {connect} from "react-redux";
 import {getUsers} from "../../state/users-reducer";
-import {authRedirect} from "../../HOC/AuthRedirect";
 import {compose} from "redux";
 
 class UsersContainer extends React.Component {
